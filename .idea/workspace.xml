@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2670199-6601-45e1-9b39-97a6937868c8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/race-condition-counter/src/com/sanrawat/raceconditionunsafe/Counter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/race-condition-counter/src/com/sanrawat/raceconditionunsafe/RaceCondition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="a2670199-6601-45e1-9b39-97a6937868c8" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
