@@ -1,5 +1,7 @@
 package com.sanrawat.raceconditionsafe;
 
+import com.sanrawat.raceconditionunsafe.Counter;
+
 public class RaceCondition {
 
     public static void main(String[] args) throws InterruptedException {
@@ -7,6 +9,7 @@ public class RaceCondition {
         CounterSynchronized counterSynchronized=new CounterSynchronized();
         CounterSafeAtomic counterSafeAtomic=new CounterSafeAtomic();
         CounterSafeLock counterSafeLock=new CounterSafeLock();
+        Counter counter=new Counter();
 
         int THREADS = 5;
         int INCREMENTS = 10_000;
@@ -20,6 +23,7 @@ public class RaceCondition {
                     counterSynchronized.increment();
                     counterSafeAtomic.increment();
                     counterSafeLock.increment();
+                    counter.increment();
                 }
             }, "worker-" + i);
         }
@@ -35,14 +39,21 @@ public class RaceCondition {
         }
 
         long expected = (long) THREADS * INCREMENTS;
+        System.out.println(" Counter Unsafe Result : ");
+        System.out.println("Expected: " + expected);
+        System.out.println("Actual:   " + counter.getValue());
+        System.out.println("Race Occurred? " + (counter.getValue() != expected));
+
         System.out.println(" CounterSynchronized Result : ");
         System.out.println("Expected: " + expected);
         System.out.println("Actual:   " + counterSynchronized.getValue());
         System.out.println("Race Occurred? " + (counterSynchronized.getValue() != expected));
+
         System.out.println(" CounterAtomic Result : ");
         System.out.println("Expected: " + expected);
         System.out.println("Actual:   " + counterSafeAtomic.getCount());
         System.out.println("Race Occurred? " + (counterSafeAtomic.getCount() != expected));
+
         System.out.println(" CounterSafeLock Result : ");
         System.out.println("Expected: " + expected);
         System.out.println("Actual:   " + counterSafeLock.getCount());
