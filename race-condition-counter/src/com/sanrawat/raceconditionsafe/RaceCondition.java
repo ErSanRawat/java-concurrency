@@ -1,5 +1,4 @@
 package com.sanrawat.raceconditionsafe;
-import com.sanrawat.raceconditionsafe.CounterSynchronized;
 
 public class RaceCondition {
 
