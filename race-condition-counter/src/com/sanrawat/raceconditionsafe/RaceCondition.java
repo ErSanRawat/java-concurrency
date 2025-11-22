@@ -6,7 +6,7 @@ public class RaceCondition {
 
         CounterSynchronized counterSynchronized=new CounterSynchronized();
         CounterSafeAtomic counterSafeAtomic=new CounterSafeAtomic();
-
+        CounterSafeLock counterSafeLock=new CounterSafeLock();
 
         int THREADS = 5;
         int INCREMENTS = 10_000;
@@ -19,6 +19,7 @@ public class RaceCondition {
                 for (int j = 0; j < INCREMENTS; j++) {
                     counterSynchronized.increment();
                     counterSafeAtomic.increment();
+                    counterSafeLock.increment();
                 }
             }, "worker-" + i);
         }
@@ -42,5 +43,9 @@ public class RaceCondition {
         System.out.println("Expected: " + expected);
         System.out.println("Actual:   " + counterSafeAtomic.getCount());
         System.out.println("Race Occurred? " + (counterSafeAtomic.getCount() != expected));
+        System.out.println(" CounterSafeLock Result : ");
+        System.out.println("Expected: " + expected);
+        System.out.println("Actual:   " + counterSafeLock.getCount());
+        System.out.println("Race Occurred? " + (counterSafeLock.getCount() != expected));
     }
 }
