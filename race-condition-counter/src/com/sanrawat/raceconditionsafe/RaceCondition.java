@@ -6,6 +6,8 @@ public class RaceCondition {
     public static void main(String[] args) throws InterruptedException {
 
         CounterSynchronized counterSynchronized=new CounterSynchronized();
+        CounterSafeAtomic counterSafeAtomic=new CounterSafeAtomic();
+
 
         int THREADS = 5;
         int INCREMENTS = 10_000;
@@ -17,6 +19,7 @@ public class RaceCondition {
             threads[i] = new Thread(() -> {
                 for (int j = 0; j < INCREMENTS; j++) {
                     counterSynchronized.increment();
+                    counterSafeAtomic.increment();
                 }
             }, "worker-" + i);
         }
@@ -32,9 +35,13 @@ public class RaceCondition {
         }
 
         long expected = (long) THREADS * INCREMENTS;
-
+        System.out.println(" CounterSynchronized Result : ");
         System.out.println("Expected: " + expected);
         System.out.println("Actual:   " + counterSynchronized.getValue());
         System.out.println("Race Occurred? " + (counterSynchronized.getValue() != expected));
+        System.out.println(" CounterAtomic Result : ");
+        System.out.println("Expected: " + expected);
+        System.out.println("Actual:   " + counterSafeAtomic.getCount());
+        System.out.println("Race Occurred? " + (counterSafeAtomic.getCount() != expected));
     }
 }
