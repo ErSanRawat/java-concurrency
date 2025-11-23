@@ -45,22 +45,23 @@ public class FetchURLCallable {
         };
 
         // Create a thread pool with 10 threads
-        ExecutorService executor = Executors.newFixedThreadPool(10);
-        List<Future<String>> futures = new ArrayList<>();
+        try (ExecutorService executor = Executors.newFixedThreadPool(10)) {
+            List<Future<String>> futures = new ArrayList<>();
 
-        for (String url : urls) {
-            // Callable returns a String result
-            Callable<String> task = () -> fetch(url);
-            // Submit task to ExecutorService
-            futures.add(executor.submit(task));
+            for (String url : urls) {
+                // Callable returns a String result
+                Callable<String> task = () -> fetch(url);
+                // Submit task to ExecutorService
+                futures.add(executor.submit(task));
+            }
+
+            // Print all results from Future
+            for (Future<String> f : futures) {
+                System.out.println(f.get());// get() waits for the result
+            }
+
+            executor.shutdown();
         }
-
-        // Print all results from Future
-        for (Future<String> f : futures) {
-            System.out.println(f.get());// get() waits for the result
-        }
-
-        executor.shutdown();
     }
 
     private static String fetch(String url) {

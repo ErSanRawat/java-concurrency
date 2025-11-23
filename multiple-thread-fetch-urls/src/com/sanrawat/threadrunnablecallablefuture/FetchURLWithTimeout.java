@@ -15,7 +15,7 @@ import java.util.concurrent.*;
 // =========================================================================
 public class FetchURLWithTimeout {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args)  {
 
         String[] urls = {
                 "https://example.com",
@@ -31,27 +31,28 @@ public class FetchURLWithTimeout {
         };
 
         // Thread pool with 10 threads
-        ExecutorService executor = Executors.newFixedThreadPool(10);
+        try (ExecutorService executor = Executors.newFixedThreadPool(10)) {
 
-        for (String url : urls) {
-            Future<String> future = executor.submit(() -> fetch(url));
+            for (String url : urls) {
+                Future<String> future = executor.submit(() -> fetch(url));
 
-            try {
-                // Wait max 3 seconds for URL fetch
-                String result = future.get(5, TimeUnit.SECONDS);
-                System.out.println(result);
+                try {
+                    // Wait max 3 seconds for URL fetch
+                    String result = future.get(5, TimeUnit.SECONDS);
+                    System.out.println(result);
 
-            } catch (TimeoutException e) {
-                // Stop slow task
-                future.cancel(true);
-                System.out.println("Timeout fetching: " + url);
+                } catch (TimeoutException e) {
+                    // Stop slow task
+                    future.cancel(true);
+                    System.out.println("Timeout fetching: " + url);
 
-            } catch (Exception e) {
-                System.out.println("Error fetching: " + url + " → " + e.getMessage());
+                } catch (Exception e) {
+                    System.out.println("Error fetching: " + url + " → " + e.getMessage());
+                }
             }
-        }
 
-        executor.shutdown();
+            executor.shutdown();
+        }
     }
 
     private static String fetch(String url) throws Exception {
