@@ -12,18 +12,25 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class CachedThreadPool {
-
     public static void main(String[] args) {
-        try (ExecutorService pool = Executors.newCachedThreadPool()) {
 
-            for (int i = 1; i <= 20; i++) {
-                int id = i;
-                pool.submit(() -> {
-                    System.out.println("Task " + id + " → " + Thread.currentThread().getName());
-                });
-            }
+        // Cached Thread Pool:
+        // - Creates unlimited threads if required
+        // - Reuses idle threads after 60 seconds
+        ExecutorService pool = Executors.newCachedThreadPool();
 
-            pool.shutdown();
+        // Submitting many lightweight tasks
+        for (int i = 1; i <= 20; i++) {
+            int id = i;
+
+            pool.submit(() -> {
+                // Threads are created dynamically as needed
+                System.out.println("Task " + id + " → Executed by: "
+                        + Thread.currentThread().getName());
+            });
         }
+
+        // Shuts down after tasks finish
+        pool.shutdown();
     }
 }
