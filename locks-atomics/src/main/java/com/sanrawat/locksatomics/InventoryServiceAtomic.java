@@ -6,12 +6,12 @@ import java.util.concurrent.atomic.AtomicInteger;
  * ------------------------------------------
  * Concept:
  *  AtomicInteger provides lock-free, thread-safe operations.
- *
+
  * Why AtomicInteger?
  *  - Very high performance under heavy concurrency.
  *  - Non-blocking (no locking).
  *  - Ideal for counters, metrics, rate-limiting, likes/views, stock pre-checks.
- *
+
  * When NOT to use?
  *  - When business logic requires a multi-step atomic operation.
  *    In those cases, use synchronized or ReentrantLock.

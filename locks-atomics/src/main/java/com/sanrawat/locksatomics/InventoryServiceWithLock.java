@@ -7,13 +7,13 @@ import java.util.concurrent.locks.ReentrantLock;
  * Concept:
  *  This class simulates reducing product stock in a high-concurrency environment.
  *  Multiple threads (orders) attempt to purchase items at the same time.
- *
+
  * Why ReentrantLock?
  *  - Gives finer control than synchronized.
  *  - Allows timed lock attempts (tryLock), interruptible locks, fairness policies.
  *  - Useful in production systems like payment processing, stock reservation,
  *    ticket booking, order placement, etc.
- *
+
  * When to use?
  *  - When you need more control than synchronized.
  *  - When operations may need timeouts, manual locking/unlocking, or fairness.
