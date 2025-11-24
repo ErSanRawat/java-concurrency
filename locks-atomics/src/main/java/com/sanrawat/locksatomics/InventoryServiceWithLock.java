@@ -19,9 +19,7 @@ import java.util.concurrent.locks.ReentrantLock;
  *  - When operations may need timeouts, manual locking/unlocking, or fairness.
  */
 
-public class InventoryServiceWithLock {
-
-    // shared product stock
+public class InventoryServiceWithLock {    // shared product stock
     private int stock = 10;
 
     // ReentrantLock used for explicit locking
