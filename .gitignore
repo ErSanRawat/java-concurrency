@@ -1,6 +1,6 @@
 ### IntelliJ IDEA ###
-*.iml
 .idea/
+*.iml
 out/
 *.class
 !**/src/main/**/out/
